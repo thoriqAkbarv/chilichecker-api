@@ -29,7 +29,7 @@ exports.register = async (req, res) => {
 
     await db.execute('INSERT INTO login (id, email, username, password) VALUES (?, ?, ?, ?)', [userId, email, username, hashedPassword]);
 
-    res.status(201).send({ error: false , message: 'User registered' });
+    res.status(201).send({ error: false , message: 'User Created' });
 
   } catch (err) {
     console.error('Error during user registration:', err);
@@ -59,10 +59,10 @@ exports.login = async (req, res) => {
     const token = jwt.sign({ id: login[0].id }, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.header('Authorization', token).send({ 
       error: false,
-      message: 'Login successful',
-      loginResult: {userId: login[0].id,
-        email: email,
-        username: login[0].username,
+      message: 'success',
+      loginResult: {
+        userId: login[0].id,
+        name: login[0].username,
         token
       } 
     });
